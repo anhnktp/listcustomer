@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="vi">
+	<head>
+		<title>Danh sách khách hàng</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
+		<link href="css/custom.css" rel="stylesheet" type="text/css"/>
+		<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+		<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,400italic,300italic' rel='stylesheet' type='text/css'>
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.js"></script>
+	</head>
+
+	<body>
+		<nav id="nav"></nav>
+		<!-- end nav-->
+		<!-- begin pageWrapper -->
+		<div class="pageWrapper" id="pageWrapper">
+			<header id="header"></header>
+			<!-- end header -->
+
+			<!-- begin pageContent -->
+			<div class="pageContent">
+				<div class="pageTitle">
+					<h1><span class="fa fa-users"></span> Danh sách khách hàng</h1>
+				</div>
+				<div class="pageContentBody clearfix categoryManage">
+					<form>
+						<div class="row">
+							<div class="col-sm-4 col-md-2">
+								<div class="form-group">
+									<span>Đại lý</span>
+									<select class="form-control">
+										<option>- Tất cả -</option>
+										<option>Trần Anh Vũ</option>
+										<option>Nguyễn Trần An</option>
+										<option>Nguyễn Anh Duy</option>
+										<option>Trần Võ Quý</option>
+										<option>Bùi Mạnh Trung</option>
+										<option>Phan Lạc Thọ</option>
+										<option>Đặng Thanh Sơn</option>
+										<option>Trần Anh Tuấn</option>
+										<option>Cao Thế Quân</option>
+										<option>Phan Trọng Nghĩa</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-sm-8 col-md-6">
+								<div class="form-group">
+									<span class="hidden-xs">&nbsp;</span>
+									<div class="input-group">
+										<input type="text" class="form-control" placeholder="Nhập tên khách hàng | email | số điện thoại">
+										<span class="input-group-btn">
+											<button type="button" class="btn btnDefault" tabindex="-1">Tìm kiếm</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>	
+					</form>
+
+					<div class="topBtnBlock clearfix">
+						<div class="float-left">
+							<select class="form-control autoWidth">						
+								<option selected >Hiển thị 30 dòng</option>
+								<option>Hiển thị 50 dòng</option>
+								<option>Hiển thị 70 dòng</option>
+								<option>Hiển thị 100 dòng</option>
+							</select>
+						</div>
+						<div class="float-right batchActionBlock">
+							<button class="btnDefault" title="In danh sách"><span class="fa fa-spin fa-print"></span></button>
+							<button class="btnDefault" title="Xuất Excel"><span class="fa fa-file-excel-o"></span><span class="hidden-xs"> Xuất Excel</span></button>
+							<div class="form-group clearfix">
+								<select class="form-control" id="batchActionSelect">
+									<option>- Thao tác -</option>
+									<option value="disable">Vô hiệu hóa</option>
+									<option value="transfer">Chuyển đại lý</option>
+								</select>
+							</div>
+							<button class="btnDefault" title="Xóa các mục đã chọn" onclick="batchAction()" title="Thực hiện"><span class="fa fa-check-square-o"></span><span class="hidden-xs"> Thực hiện</span> (0)</button>
+						</div>
+					</div>
+
+					<!-- batchTransferModal -->
+					<div id="batchTransferModal" class="modal fade modal-w-400">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h4 class="modal-title">Chuyển đại lý</h4>
+								</div>
+								<div class="modal-body">
+									<p>Chuyển tất cả khách hàng vừa chọn tới đại lý:</p>
+									<div class="form-group">
+										<select class="form-control">
+											<option>- Chọn đại lý -</option>
+											<option>Trần Anh Vũ</option>
+											<option>Nguyễn Trần An</option>
+											<option>Nguyễn Anh Duy</option>
+											<option>Trần Võ Quý</option>
+											<option>Bùi Mạnh Trung</option>
+											<option>Phan Lạc Thọ</option>
+											<option>Đặng Thanh Sơn</option>
+											<option>Trần Anh Tuấn</option>
+											<option>Cao Thế Quân</option>
+											<option>Phan Trọng Nghĩa</option>
+										</select>
+									</div>
+
+									<div class="modalBtnBlock">
+										<button type="button" class="btnCancel" data-dismiss="modal">Hủy</button>
+										<button type="button" class="btnDefault" data-dismiss="modal">Chuyển</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- end batchTransferModal -->
+
+					<!-- batchDisableConfirmModal -->
+					<div id="batchDisableConfirmModal" class="modal fade modal-w-400">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h4 class="modal-title">Vô hiệu hóa</h4>
+								</div>
+								<div class="modal-body">
+									<p>Bạn có chắc chắn muốn vô hiệu hóa tất cả khách hàng vừa chọn?</p>
+									<div class="modalBtnBlock">
+										<button type="button" class="btnCancel" data-dismiss="modal">Hủy</button>
+										<button type="button" class="btnDanger" data-dismiss="modal">Vô hiệu hóa</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- end batchDisableConfirmModal -->
+
+					<div class="responsiveTableContainer">
+						<table class="tableDefault customerTable">
+							<thead>
+								<tr>
+									<th>STT</th>
+									<th>Tên khách hàng</th>
+									<th>Hình thức</th>
+									<th>Thuộc đại lý</th>
+									<th>Địa chỉ</th>
+									<th>Email</th>
+									<th>Điện thoại</th>
+									<th>Thao tác</th>
+									<th><input type="checkbox"></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>	
+									<td>1</td>
+									<td>Lê Thanh Bình</td>
+									<td>Cá nhân</td>
+									<td>Nguyễn Trần An</td>
+									<td>Số 32/50 Chính Kinh - Thanh Xuân - Hà Nội</td>
+									<td>songviytuong@gmail.com      <br>
+										songviytuong@yahoo.com</td>
+									<td>0989466466<br>0989466466</td>
+									<td class="tableAction">
+										<a href="#customerInfoModal" data-toggle="modal" title="Thông tin chi tiết"><span class="fa fa-info-circle"></span></a>
+
+										<a href="#customerDetailModal" data-toggle="modal" title="Sửa chi tiết"><span class="fa fa-pencil-square-o"></span></a>
+										<a href="#disableConfirmModal" title="Vô hiệu hóa" data-toggle="modal"><span class="fa fa-user-times"></span></a>
+										<a href="#transferModal" title="Chuyển khách hàng" data-toggle="modal"><span class="fa fa-arrows"></span></a>
+									</td>
+									<td><input type="checkbox"></td>
+								</tr>
+								<tr>
+									<td>2</td>
+									<td>Cty TNHH Công Nghệ Cao Bách Khoa</td>
+									<td>Tổ chức, công ty</td>
+									<td>Trần Võ Quý</td>
+									<td>Số 37 Võng Thị, Phường Bưởi, Quận Tây Hồ</td>
+									<td>dungnd@giaiphap.com.vn      <br>
+										dinhdungfpt@gmail.com</td>
+									<td>0982468535</td>
+									<td class="tableAction">
+										<a href="#customerInfoModal" data-toggle="modal" title="Thông tin chi tiết"><span class="fa fa-info-circle"></span></a>
+
+										<a href="#customerDetailModal" data-toggle="modal" title="Sửa chi tiết"><span class="fa fa-pencil-square-o"></span></a>
+										<a href="#disableConfirmModal" title="Vô hiệu hóa" data-toggle="modal"><span class="fa fa-user-times"></span></a>
+										<a href="#transferModal" title="Chuyển khách hàng" data-toggle="modal"><span class="fa fa-arrows"></span></a>
+									</td>
+									<td><input type="checkbox"></td>
+								</tr>
+								<tr>
+									<td>3</td>
+									<td>Nguyễn văn Tú</td>
+									<td>Cá nhân</td>
+									<td>Bùi Mạnh Trung</td>
+									<td>số 6a, ngõ 172/1, xuân đỉnh, bắc từ liêm</td>
+									<td>dangthanhdo@gmail.com
+									</td>	<td>0906168691<br>0934659777</td>
+									<td class="tableAction">
+										<a href="#customerInfoModal" data-toggle="modal" title="Thông tin chi tiết"><span class="fa fa-info-circle"></span></a>
+
+										<a href="#customerDetailModal" data-toggle="modal" title="Sửa chi tiết"><span class="fa fa-pencil-square-o"></span></a>
+										<a href="#disableConfirmModal" title="Vô hiệu hóa" data-toggle="modal"><span class="fa fa-user-times"></span></a>
+										<a href="#transferModal" title="Chuyển khách hàng" data-toggle="modal"><span class="fa fa-arrows"></span></a>
+									</td>
+									<td><input type="checkbox"></td>
+								</tr>
+								<tr>
+									<td>4</td>
+									<td>NGUYỄN ĐÌNH BÁ</td>
+									<td>Cá nhân</td>
+									<td>Nguyễn Trần An</td>
+									<td>Số 15 Ngõ 46 Nguyễn Trãi, Thanh Xuân</td>
+									<td>thandieulongnu@gmail.com      <br>
+									</td>	<td>0965773307<br>0435626296</td>
+									<td class="tableAction">
+										<a href="#customerInfoModal" data-toggle="modal" title="Thông tin chi tiết"><span class="fa fa-info-circle"></span></a>
+
+										<a href="#customerDetailModal" data-toggle="modal" title="Sửa chi tiết"><span class="fa fa-pencil-square-o"></span></a>
+										<a href="#disableConfirmModal" title="Vô hiệu hóa" data-toggle="modal"><span class="fa fa-user-times"></span></a>
+										<a href="#transferModal" title="Chuyển khách hàng" data-toggle="modal"><span class="fa fa-arrows"></span></a>
+									</td>
+									<td><input type="checkbox"></td>
+								</tr>
+								<tr>
+									<td>5</td>
+									<td>Ngô Ngọc Tân</td>
+									<td>Cá nhân</td>
+									<td>Nguyễn Anh Duy</td>
+									<td>Số 21, Ngõ 322 Lê Trọng Tấn, Hà Nội, Viet Nam</td>
+									<td>ngoctan.yolotravel@gmail.com      <br>
+									</td>
+									<td>01649729597</td>
+									<td class="tableAction">
+										<a href="#customerInfoModal" data-toggle="modal" title="Thông tin chi tiết"><span class="fa fa-info-circle"></span></a>
+
+										<a href="#customerDetailModal" data-toggle="modal" title="Sửa chi tiết"><span class="fa fa-pencil-square-o"></span></a>
+										<a href="#disableConfirmModal" title="Vô hiệu hóa" data-toggle="modal"><span class="fa fa-user-times"></span></a>
+										<a href="#transferModal" title="Chuyển khách hàng" data-toggle="modal"><span class="fa fa-arrows"></span></a>
+									</td>
+									<td><input type="checkbox"></td>
+								</tr>
+								<tr>
+									<td>6</td>
+									<td>BÀ NGUYỄN THỊ NHUNG</td>
+									<td>Cá nhân</td>
+									<td>Nguyễn Anh Duy</td>
+									<td>Số 15 Ngõ 21/55 Đường Tựu Liệt, Văn Điển, Thanh Trì, Hà Nội, Viet Nam</td>
+									<td>nguyendinhdung150585@gmail.com      <br>
+									</td>	<td>01253875555<br>01253875555</td>
+									<td class="tableAction">
+										<a href="#customerInfoModal" data-toggle="modal" title="Thông tin chi tiết"><span class="fa fa-info-circle"></span></a>
+
+										<a href="#customerDetailModal" data-toggle="modal" title="Sửa chi tiết"><span class="fa fa-pencil-square-o"></span></a>
+										<a href="#disableConfirmModal" title="Vô hiệu hóa" data-toggle="modal"><span class="fa fa-user-times"></span></a>
+										<a href="#transferModal" title="Chuyển khách hàng" data-toggle="modal"><span class="fa fa-arrows"></span></a>
+									</td>
+									<td><input type="checkbox"></td>
+								</tr>
+								<tr>
+									<td>7</td>
+									<td>Cty TNHH Minh Anh</td>
+									<td>Tổ chức, công ty</td>
+									<td>Trần Võ Quý</td>
+									<td>Xâm Dương, Ninh Sở, thường Tín, Hà Nội, Viet Nam</td>
+									<td>duypp1992@gmail.com      <br>
+									</td>
+									<td>0977290342</td>
+									<td class="tableAction">
+										<a href="#customerInfoModal" data-toggle="modal" title="Thông tin chi tiết"><span class="fa fa-info-circle"></span></a>
+
+										<a href="#customerDetailModal" data-toggle="modal" title="Sửa chi tiết"><span class="fa fa-pencil-square-o"></span></a>
+										<a href="#disableConfirmModal" title="Vô hiệu hóa" data-toggle="modal"><span class="fa fa-user-times"></span></a>
+										<a href="#transferModal" title="Chuyển khách hàng" data-toggle="modal"><span class="fa fa-arrows"></span></a>
+									</td>
+									<td><input type="checkbox"></td>
+								</tr>
+								<tr>
+									<td>8</td>
+									<td>Cty TNHH vật tư xây dựng Kim Long</td>
+									<td>Tổ chức, công ty</td>
+									<td>Bùi Mạnh Trung</td>
+									<td>xóm 9 cát lại bình nghĩa bình lục hà nam, Hà Nam, Viet Nam</td>
+									<td>htv2490@gmail.com      <br>
+									</td>
+									<td>01689910405</td>
+									<td class="tableAction">
+										<a href="#customerInfoModal" data-toggle="modal" title="Thông tin chi tiết"><span class="fa fa-info-circle"></span></a>
+
+										<a href="#customerDetailModal" data-toggle="modal" title="Sửa chi tiết"><span class="fa fa-pencil-square-o"></span></a>
+										<a href="#disableConfirmModal" title="Vô hiệu hóa" data-toggle="modal"><span class="fa fa-user-times"></span></a>
+										<a href="#transferModal" title="Chuyển khách hàng" data-toggle="modal"><span class="fa fa-arrows"></span></a>
+									</td>
+									<td><input type="checkbox"></td>
+								</tr>
+								<tr>
+									<td>9</td>
+									<td>Nguyễn Văn Duyên</td>
+									<td>Cá nhân</td>
+									<td>Nguyễn Trần An</td>
+									<td>Sài Đồng, Long biên, Hà Nội, Viet Nam</td>
+									<td>remthamanthinh@gmail.com      <br>
+									</td>
+									<td>0918525141</td>
+									<td class="tableAction">
+										<a href="#customerInfoModal" data-toggle="modal" title="Thông tin chi tiết"><span class="fa fa-info-circle"></span></a>
+
+										<a href="#customerDetailModal" data-toggle="modal" title="Sửa chi tiết"><span class="fa fa-pencil-square-o"></span></a>
+										<a href="#disableConfirmModal" title="Vô hiệu hóa" data-toggle="modal"><span class="fa fa-user-times"></span></a>
+										<a href="#transferModal" title="Chuyển khách hàng" data-toggle="modal"><span class="fa fa-arrows"></span></a>
+									</td>
+									<td><input type="checkbox"></td>
+								</tr>
+								<tr>
+									<td>10</td>
+									<td>Nguyễn Quang Dự</td>
+									<td>Cá nhân</td>
+									<td>Nguyễn Trần An</td>
+									<td>49/975 Tam Trinh, Yên sở, Hoàng Mai, Hà Nội, Viet Nam</td>
+									<td>dunguyenquang156@gmail.com      <br>
+									</td>
+									<td>01656290156</td>
+									<td class="tableAction">
+										<a href="#customerInfoModal" data-toggle="modal" title="Thông tin chi tiết"><span class="fa fa-info-circle"></span></a>
+
+										<a href="#customerDetailModal" data-toggle="modal" title="Sửa chi tiết"><span class="fa fa-pencil-square-o"></span></a>
+										<a href="#disableConfirmModal" title="Vô hiệu hóa" data-toggle="modal"><span class="fa fa-user-times"></span></a>
+										<a href="#transferModal" title="Chuyển khách hàng" data-toggle="modal"><span class="fa fa-arrows"></span></a>
+									</td>
+									<td><input type="checkbox"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<!-- disableConfirmModal -->
+					<div id="disableConfirmModal" class="modal fade modal-w-400">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h4 class="modal-title">Vô hiệu hóa</h4>
+								</div>
+								<div class="modal-body">
+									<p>Bạn có chắc chắn muốn vô hiệu hóa khách hàng này?</p>
+									<div class="modalBtnBlock">
+										<button type="button" class="btnCancel" data-dismiss="modal">Hủy</button>
+										<button type="button" class="btnDanger" data-dismiss="modal">Vô hiệu hóa</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- end disableConfirmModal -->
+
+					<!-- transferModal -->
+					<div id="transferModal" class="modal fade modal-w-400">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h4 class="modal-title">Chuyển đại lý</h4>
+								</div>
+								<div class="modal-body">
+									<p>Chuyển khách hàng tới đại lý:</p>
+									<div class="form-group">
+										<select class="form-control">
+											<option>- Chọn đại lý -</option>
+											<option>Trần Anh Vũ</option>
+											<option>Nguyễn Trần An</option>
+											<option>Nguyễn Anh Duy</option>
+											<option>Trần Võ Quý</option>
+											<option>Bùi Mạnh Trung</option>
+											<option>Phan Lạc Thọ</option>
+											<option>Đặng Thanh Sơn</option>
+											<option>Trần Anh Tuấn</option>
+											<option>Cao Thế Quân</option>
+											<option>Phan Trọng Nghĩa</option>
+										</select>
+									</div>
+									<div class="modalBtnBlock">
+										<button type="button" class="btnCancel" data-dismiss="modal">Hủy</button>
+										<button type="button" class="btnDefault" data-dismiss="modal">Chuyển</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- end transferModal -->
+
+					<!-- customerInfoModal -->
+					<div id="customerInfoModal" class="modal fade">
+						<div class="modal-dialog modal-lg">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h4 class="modal-title">Thông tin khách hàng</h4>
+								</div>
+								<div class="modal-body">
+									<table>
+										<tbody>
+											<tr>
+												<td>Mã khách hàng</td>
+												<td class="colon">:</td>
+												<td>IDC2342</td>
+											</tr>
+											<tr>
+												<td>Tên khách hàng</td>
+												<td class="colon">:</td>
+												<td>Nguyễn Khách Hàng</td>
+											</tr>
+											<tr>
+												<td>Hình thức</td>
+												<td class="colon">:</td>
+												<td>Cá nhân</td>
+											</tr>
+											<tr>
+												<td>Người đại diện</td>
+												<td class="colon">:</td>
+												<td></td>
+											</tr>
+											<tr>
+												<td>Thuộc đại lý</td>
+												<td class="colon">:</td>
+												<td>Nguyễn Trần An</td>
+											</tr>
+											<tr>
+												<td>Dịch vụ</td>
+												<td class="colon">:</td>
+												<td>Tên miền, Hosting</td>
+											</tr>
+											<tr>
+												<td>Địa chỉ</td>
+												<td class="colon">:</td>
+												<td>321 Nguyễn Xiển, Thanh Xuân, Hà Nội</td>
+											</tr>
+											<tr>
+												<td>Quốc gia</td>
+												<td class="colon">:</td>
+												<td>Việt Nam</td>
+											</tr>
+											<tr>
+												<td>Tỉnh/Thành phố</td>
+												<td class="colon">:</td>
+												<td>Hà Nội</td>
+											</tr>
+											<tr>
+												<td>Số CMTND</td>
+												<td class="colon">:</td>
+												<td>24652533252</td>
+											</tr>
+											<tr>
+												<td>Email chính</td>
+												<td class="colon">:</td>
+												<td class="emailAddress">hangkhach@gmail.com</td>
+											</tr>
+											<tr>
+												<td>Email phụ</td>
+												<td class="colon">:</td>
+												<td class="emailAddress"></td>
+											</tr>
+											<tr>
+												<td>Di động</td>
+												<td class="colon">:</td>
+												<td>0983253242</td>
+											</tr>
+											<tr>
+												<td>Điện thoại bàn</td>
+												<td class="colon">:</td>
+												<td>0431546425</td>
+											</tr>
+											<tr>
+												<td>Fax</td>
+												<td class="colon">:</td>
+												<td></td>
+											</tr>
+											<tr>
+												<td>Ngày sinh</td>
+												<td class="colon">:</td>
+												<td>12/04/1978</td>
+											</tr>
+											<tr></tr>
+										</tbody>
+									</table>
+									<div class="row">
+										<div class="col-sm-6">
+											<strong>Ngày tạo: </strong>
+											<span>17/12/2014</span>
+										</div>
+										<div class="col-sm-6">
+											<strong>Ngày sửa đổi: </strong>
+											<span>05/04/2016</span>
+										</div>
+									</div>
+									<div class="modalBtnBlock">
+										<button type="button" class="btnDefault" data-dismiss="modal">Xong</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- end customerInfoModal -->
+
+					<!-- customerDetailModal -->
+					<div id="customerDetailModal" class="modal fade">
+						<div class="modal-dialog modal-lg">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h4 class="modal-title">Chi tiết khách hàng</h4>
+								</div>
+								<div class="modal-body">
+									<form>
+										<div class="row">
+											<div class="form-group clearfix">
+												<div class="col-sm-3">
+													<span>Mã khách hàng</span>
+												</div>
+												<div class="col-sm-9">
+													<input type="text" class="form-control">
+												</div>
+											</div>
+											<div class="form-group clearfix">
+												<div class="col-sm-3">
+													<span>Tên khách hàng</span>
+												</div>
+												<div class="col-sm-9">
+													<input type="text" class="form-control">
+												</div>
+											</div>
+											<div class="form-group clearfix">
+												<div class="col-sm-3">
+													<span>Hình thức</span>
+												</div>
+												<div class="col-sm-9">
+													<select class="form-control" id="customerType" onchange="customer_changeType()">
+														<option value="person">Cá Nhân</option>
+														<option value="org">Tổ chức, công ty</option>
+													</select>
+												</div>
+											</div>
+											<div class="form-group clearfix">
+												<div class="col-sm-3">
+													<span>Người đại diện</span>
+												</div>
+												<div class="col-sm-9">
+													<input type="text" class="form-control">
+												</div>
+											</div>
+											<div class="form-group clearfix">
+												<div class="col-sm-3">
+													<span>Thuộc đại lý</span>
+												</div>
+												<div class="col-sm-9">
+													<select class="form-control">
+														<option>Nguyễn Trần An</option>
+														<option>Nguyễn Anh Duy</option>
+														<option>Trần Võ Quý</option>
+														<option>Bùi Mạnh Trung</option>
+														<option>Phan Lạc Thọ</option>
+														<option>Đặng Thanh Sơn</option>
+														<option>Trần Anh Tuấn</option>
+														<option>Cao Thế Quân</option>
+														<option>Phan Trọng Nghĩa</option>
+													</select>
+												</div>
+											</div>
+											<div class="form-group clearfix">
+												<div class="col-sm-3">
+													<span>Dịch vụ</span>
+												</div>
+												<div class="col-sm-9">
+													<ul class="resellerServiceList">
+														<li class="checkbox">
+															<label><input type="checkbox" id="checkboxDomain" onchange="toggleDiscount('discountDomain')">
+																<span class="p-r-5">Domain</span></label>
+														</li>
+														<li class="checkbox">
+															<label>
+																<input type="checkbox" id="checkboxHosting" onchange="toggleDiscount('discountHosting')">
+																<span class="p-r-5">Hosting</span></label>
+														</li>
+														<li class="checkbox">
+															<label><input type="checkbox" id="checkboxMail" onchange="toggleDiscount('discountMail')">
+																<span>Mail server</span></label>
+														</li>
+													</ul>
+												</div>
+
+											</div>
+											<div class="form-group clearfix">
+												<div class="col-sm-3">
+													<span>Địa chỉ</span>
+												</div>
+												<div class="col-sm-9">
+													<input type="text" class="form-control">
+												</div>
+											</div>
+											<div class="form-group clearfix">
+												<div class="col-sm-3">
+													<span>Quốc gia</span>
+												</div>
+												<div class="col-sm-9">
+													<select id="customer_country" class="form-control" onchange="customer_changecountry()">
+														<option value="Viet Nam" countrycode="+84" selected>Việt Nam</option>
+														<option value="Afghanistan" countrycode="+93">Afghanistan</option>
+														<option value="Aaland Islands" countrycode="+358">Aaland Islands</option>
+														<option value="Albania" countrycode="+355">Albania</option>
+														<option value="Algeria" countrycode="+213">Algeria</option>
+														<option value="American Samoa" countrycode="+1684">American Samoa</option>
+														<option value="Andorra" countrycode="+376">Andorra</option>
+														<option value="Angola" countrycode="+244">Angola</option>
+														<option value="Anguilla" countrycode="+1264">Anguilla</option>
+														<option value="Antarctica" countrycode="+672">Antarctica</option>
+														<option value="Antigua And Barbuda" countrycode="+1268">Antigua And Barbuda</option>
+														<option value="Argentina" countrycode="+54">Argentina</option>
+														<option value="Armenia" countrycode="+374">Armenia</option>
+														<option value="Aruba" countrycode="+297">Aruba</option>
+														<option value="Australia" countrycode="+61">Australia</option>
+														<option value="Austria" countrycode="+43">Austria</option>
+														<option value="Azerbaijan" countrycode="+994">Azerbaijan</option>
+														<option value="Bahamas" countrycode="+1242">Bahamas</option>
+														<option value="Bahrain" countrycode="+973">Bahrain</option>
+														<option value="Bangladesh" countrycode="+880">Bangladesh</option>
+														<option value="Barbados" countrycode="+1246">Barbados</option>
+														<option value="Belarus" countrycode="+375">Belarus</option>
+														<option value="Belgium" countrycode="+32">Belgium</option>
+														<option value="Belize" countrycode="+501">Belize</option>
+														<option value="Benin" countrycode="+229">Benin</option>
+														<option value="Bermuda" countrycode="+1441">Bermuda</option>
+														<option value="Bhutan" countrycode="+975">Bhutan</option>
+														<option value="Bolivia" countrycode="+591">Bolivia</option>
+														<option value="Bosnia And Herzegovina" countrycode="+387">Bosnia And Herzegovina</option>
+														<option value="Botswana" countrycode="+267">Botswana</option>
+														<option value="Bouvet Island" countrycode="+0">Bouvet Island</option>
+														<option value="Brazil" countrycode="+55">Brazil</option>
+														<option value="British Indian Ocean Territory" countrycode="+246">British Indian Ocean Territory</option>
+														<option value="Brunei Darussalam" countrycode="+673">Brunei Darussalam</option>
+														<option value="Bulgaria" countrycode="+359">Bulgaria</option>
+														<option value="Burkina Faso" countrycode="+226">Burkina Faso</option>
+														<option value="Burundi" countrycode="+257">Burundi</option>
+														<option value="Cambodia" countrycode="+855">Cambodia</option>
+														<option value="Cameroon" countrycode="+237">Cameroon</option>
+														<option value="Canada" countrycode="+1">Canada</option>
+														<option value="Cape Verde" countrycode="+238">Cape Verde</option>
+														<option value="Cayman Islands" countrycode="+1345">Cayman Islands</option>
+														<option value="Central African Republic" countrycode="+236">Central African Republic</option>
+														<option value="Chad" countrycode="+235">Chad</option>
+														<option value="Chile" countrycode="+56">Chile</option>
+														<option value="China" countrycode="+86">China</option>
+														<option value="Christmas Island" countrycode="+61">Christmas Island</option>
+														<option value="Cocos (Keeling) Islands" countrycode="+61">Cocos (Keeling) Islands</option>
+														<option value="Colombia" countrycode="+57">Colombia</option>
+														<option value="Comoros" countrycode="+269">Comoros</option>
+														<option value="Congo" countrycode="+242">Congo</option>
+														<option value="Congo, The Democratic Republic Of The" countrycode="+243">Congo, The Democratic Republic Of The</option>
+														<option value="Cook Islands" countrycode="+682">Cook Islands</option>
+														<option value="Costa Rica" countrycode="+506">Costa Rica</option>
+														<option value="Cote DIvoire" countrycode="+225">Cote DIvoire</option>
+														<option value="Croatia" countrycode="+385">Croatia</option>
+														<option value="Cuba" countrycode="+53">Cuba</option>
+														<option value="Cyprus" countrycode="+357">Cyprus</option>
+														<option value="Czech Republic" countrycode="+420">Czech Republic</option>
+														<option value="Denmark" countrycode="+45">Denmark</option>
+														<option value="Djibouti" countrycode="+253">Djibouti</option>
+														<option value="Dominica" countrycode="+1767">Dominica</option>
+														<option value="Dominican Republic" countrycode="+1849">Dominican Republic</option>
+														<option value="Ecuador" countrycode="+593">Ecuador</option>
+														<option value="Egypt" countrycode="+20">Egypt</option>
+														<option value="El Salvador" countrycode="+503">El Salvador</option>
+														<option value="Equatorial Guinea" countrycode="+240">Equatorial Guinea</option>
+														<option value="Eritrea" countrycode="+291">Eritrea</option>
+														<option value="Estonia" countrycode="+372">Estonia</option>
+														<option value="Ethiopia" countrycode="+251">Ethiopia</option>
+														<option value="Falkland Islands (Malvinas)" countrycode="+500">Falkland Islands (Malvinas)</option>
+														<option value="Faroe Islands" countrycode="+298">Faroe Islands</option>
+														<option value="Fiji" countrycode="+679">Fiji</option>
+														<option value="Finland" countrycode="+358">Finland</option>
+														<option value="France" countrycode="+33">France</option>
+														<option value="French Guiana" countrycode="+594">French Guiana</option>
+														<option value="French Polynesia" countrycode="+689">French Polynesia</option>
+														<option value="French Southern Territories" countrycode="+33">French Southern Territories</option>
+														<option value="Gabon" countrycode="+241">Gabon</option>
+														<option value="Gambia" countrycode="+220">Gambia</option>
+														<option value="Georgia" countrycode="+995">Georgia</option>
+														<option value="Germany" countrycode="+49">Germany</option>
+														<option value="Ghana" countrycode="+233">Ghana</option>
+														<option value="Gibraltar" countrycode="+350">Gibraltar</option>
+														<option value="Greece" countrycode="+30">Greece</option>
+														<option value="Greenland" countrycode="+299">Greenland</option>
+														<option value="Grenada" countrycode="+1473">Grenada</option>
+														<option value="Guadeloupe" countrycode="+590">Guadeloupe</option>
+														<option value="Guam" countrycode="+1671">Guam</option>
+														<option value="Guatemala" countrycode="+502">Guatemala</option>
+														<option value="Guinea" countrycode="+224">Guinea</option>
+														<option value="Guinea-bissau" countrycode="+245">Guinea-bissau</option>
+														<option value="Guyana" countrycode="+592">Guyana</option>
+														<option value="Haiti" countrycode="+509">Haiti</option>
+														<option value="Heard Island And Mcdonald Islands" countrycode="+0">Heard Island And Mcdonald Islands</option>
+														<option value="Vatican City State (Holy See)" countrycode="+39">Vatican City State (Holy See)</option>
+														<option value="Honduras" countrycode="+504">Honduras</option>
+														<option value="Hong Kong" countrycode="+852">Hong Kong</option>
+														<option value="Hungary" countrycode="+36">Hungary</option>
+														<option value="Iceland" countrycode="+354">Iceland</option>
+														<option value="India" countrycode="+91">India</option>
+														<option value="Indonesia" countrycode="+62">Indonesia</option>
+														<option value="Iran, Islamic Republic Of" countrycode="+98">Iran, Islamic Republic Of</option>
+														<option value="Iraq" countrycode="+964">Iraq</option>
+														<option value="Ireland" countrycode="+353">Ireland</option>
+														<option value="Israel" countrycode="+972">Israel</option>
+														<option value="Italy" countrycode="+39">Italy</option>
+														<option value="Jamaica" countrycode="+1876">Jamaica</option>
+														<option value="Japan" countrycode="+81">Japan</option>
+														<option value="Jordan" countrycode="+962">Jordan</option>
+														<option value="Kazakhstan" countrycode="+7">Kazakhstan</option>
+														<option value="Kenya" countrycode="+254">Kenya</option>
+														<option value="Kiribati" countrycode="+686">Kiribati</option>
+														<option value="Korea, Democratic Peoples Republic Of" countrycode="+850">Korea, Democratic Peoples Republic Of</option>
+														<option value="Korea, Republic Of" countrycode="+82">Korea, Republic Of</option>
+														<option value="Kuwait" countrycode="+965">Kuwait</option>
+														<option value="Kyrgyzstan" countrycode="+996">Kyrgyzstan</option>
+														<option value="Lao Peoples Democratic Republic" countrycode="+856">Lao Peoples Democratic Republic</option>
+														<option value="Latvia" countrycode="+371">Latvia</option>
+														<option value="Lebanon" countrycode="+961">Lebanon</option>
+														<option value="Lesotho" countrycode="+266">Lesotho</option>
+														<option value="Liberia" countrycode="+231">Liberia</option>
+														<option value="Libyan Arab Jamahiriya" countrycode="+218">Libyan Arab Jamahiriya</option>
+														<option value="Liechtenstein" countrycode="+423">Liechtenstein</option>
+														<option value="Lithuania" countrycode="+370">Lithuania</option>
+														<option value="Luxembourg" countrycode="+352">Luxembourg</option>
+														<option value="Macao" countrycode="+853">Macao</option>
+														<option value="Macedonia, The Former Yugoslav Republic Of" countrycode="+389">Macedonia, The Former Yugoslav Republic Of</option>
+														<option value="Madagascar" countrycode="+261">Madagascar</option>
+														<option value="Malawi" countrycode="+265">Malawi</option>
+														<option value="Malaysia" countrycode="+60">Malaysia</option>
+														<option value="Maldives" countrycode="+960">Maldives</option>
+														<option value="Mali" countrycode="+223">Mali</option>
+														<option value="Malta" countrycode="+356">Malta</option>
+														<option value="Marshall Islands" countrycode="+692">Marshall Islands</option>
+														<option value="Martinique" countrycode="+596">Martinique</option>
+														<option value="Mauritania" countrycode="+222">Mauritania</option>
+														<option value="Mauritius" countrycode="+230">Mauritius</option>
+														<option value="Mayotte" countrycode="+262">Mayotte</option>
+														<option value="Mexico" countrycode="+52">Mexico</option>
+														<option value="Micronesia, Federated States Of" countrycode="+691">Micronesia, Federated States Of</option>
+														<option value="Moldova, Republic Of" countrycode="+373">Moldova, Republic Of</option>
+														<option value="Monaco" countrycode="+377">Monaco</option>
+														<option value="Mongolia" countrycode="+976">Mongolia</option>
+														<option value="Montserrat" countrycode="+1664">Montserrat</option>
+														<option value="Morocco" countrycode="+212">Morocco</option>
+														<option value="Mozambique" countrycode="+258">Mozambique</option>
+														<option value="Myanmar" countrycode="+95">Myanmar</option>
+														<option value="Namibia" countrycode="+264">Namibia</option>
+														<option value="Nauru" countrycode="+674">Nauru</option>
+														<option value="Nepal" countrycode="+977">Nepal</option>
+														<option value="Netherlands" countrycode="+31">Netherlands</option>
+														<option value="Netherlands antilles" countrycode="+0">Netherlands antilles</option>
+														<option value="New Caledonia" countrycode="+687">New Caledonia</option>
+														<option value="New Zealand" countrycode="+64">New Zealand</option>
+														<option value="Nicaragua" countrycode="+505">Nicaragua</option>
+														<option value="Niger" countrycode="+227">Niger</option>
+														<option value="Nigeria" countrycode="+234">Nigeria</option>
+														<option value="Niue" countrycode="+683">Niue</option>
+														<option value="Norfolk Island" countrycode="+672">Norfolk Island</option>
+														<option value="Northern Mariana Islands" countrycode="+1670">Northern Mariana Islands</option>
+														<option value="Norway" countrycode="+47">Norway</option>
+														<option value="Oman" countrycode="+968">Oman</option>
+														<option value="Pakistan" countrycode="+92">Pakistan</option>
+														<option value="Palau" countrycode="+680">Palau</option>
+														<option value="Palestinian Territory, Occupied" countrycode="+970">Palestinian Territory, Occupied</option>
+														<option value="Panama" countrycode="+507">Panama</option>
+														<option value="Papua New Guinea" countrycode="+675">Papua New Guinea</option>
+														<option value="Paraguay" countrycode="+595">Paraguay</option>
+														<option value="Peru" countrycode="+51">Peru</option>
+														<option value="Philippines" countrycode="+63">Philippines</option>
+														<option value="Pitcairn Island" countrycode="+872">Pitcairn Island</option>
+														<option value="Poland" countrycode="+48">Poland</option>
+														<option value="Portugal" countrycode="+351">Portugal</option>
+														<option value="Puerto Rico" countrycode="+1939">Puerto Rico</option>
+														<option value="Qatar" countrycode="+974">Qatar</option>
+														<option value="Reunion" countrycode="+262">Reunion</option>
+														<option value="Romania" countrycode="+40">Romania</option>
+														<option value="Russian Federation" countrycode="+7">Russian Federation</option>
+														<option value="Rwanda" countrycode="+250">Rwanda</option>
+														<option value="Saint Helena" countrycode="+290">Saint Helena</option>
+														<option value="Saint Kitts And Nevis" countrycode="+1869">Saint Kitts And Nevis</option>
+														<option value="Saint Lucia" countrycode="+1758">Saint Lucia</option>
+														<option value="Saint Pierre And Miquelon" countrycode="+508">Saint Pierre And Miquelon</option>
+														<option value="Saint Vincent And The Grenadines" countrycode="+1784">Saint Vincent And The Grenadines</option>
+														<option value="Samoa" countrycode="+685">Samoa</option>
+														<option value="San Marino" countrycode="+378">San Marino</option>
+														<option value="Sao Tome And Principe" countrycode="+239">Sao Tome And Principe</option>
+														<option value="Saudi Arabia" countrycode="+966">Saudi Arabia</option>
+														<option value="Senegal" countrycode="+221">Senegal</option>
+														<option value="Serbia And Montenegro" countrycode="">Serbia And Montenegro</option>
+														<option value="Seychelles" countrycode="+248">Seychelles</option>
+														<option value="Sierra Leone" countrycode="+232">Sierra Leone</option>
+														<option value="Singapore" countrycode="+65">Singapore</option>
+														<option value="Slovakia" countrycode="+421">Slovakia</option>
+														<option value="Slovenia" countrycode="+386">Slovenia</option>
+														<option value="Solomon Islands" countrycode="+677">Solomon Islands</option>
+														<option value="Somalia" countrycode="+252">Somalia</option>
+														<option value="South Africa" countrycode="+27">South Africa</option>
+														<option value="South Georgia And The South Sandwich Islands" countrycode="">South Georgia And The South Sandwich Islands</option>
+														<option value="Spain" countrycode="+34">Spain</option>
+														<option value="Sri Lanka" countrycode="+94">Sri Lanka</option>
+														<option value="Sudan" countrycode="+249">Sudan</option>
+														<option value="Suriname" countrycode="+597">Suriname</option>
+														<option value="Svalbard And Jan Mayen" countrycode="+47">Svalbard And Jan Mayen</option>
+														<option value="Swaziland" countrycode="+268">Swaziland</option>
+														<option value="Sweden" countrycode="+46">Sweden</option>
+														<option value="Switzerland" countrycode="+41">Switzerland</option>
+														<option value="Syrian Arab Republic" countrycode="+963">Syrian Arab Republic</option>
+														<option value="Taiwan, Province Of China" countrycode="+886">Taiwan, Province Of China</option>
+														<option value="Tajikistan" countrycode="+992">Tajikistan</option>
+														<option value="Tanzania, United Republic Of" countrycode="+255">Tanzania, United Republic Of</option>
+														<option value="Thailand" countrycode="+66">Thailand</option>
+														<option value="Timor-Leste" countrycode="+670">Timor-Leste</option>
+														<option value="Togo" countrycode="+228">Togo</option>
+														<option value="Tokelau" countrycode="+690">Tokelau</option>
+														<option value="Tonga" countrycode="+676">Tonga</option>
+														<option value="Trinidad And Tobago" countrycode="+1868">Trinidad And Tobago</option>
+														<option value="Tunisia" countrycode="+216">Tunisia</option>
+														<option value="Turkey" countrycode="+90">Turkey</option>
+														<option value="Turkmenistan" countrycode="+993">Turkmenistan</option>
+														<option value="Turks And Caicos Islands" countrycode="+1649">Turks And Caicos Islands</option>
+														<option value="Tuvalu" countrycode="+688">Tuvalu</option>
+														<option value="Uganda" countrycode="+256">Uganda</option>
+														<option value="Ukraine" countrycode="+380">Ukraine</option>
+														<option value="United Arab Emirates" countrycode="+971">United Arab Emirates</option>
+														<option value="United Kingdom" countrycode="+44">United Kingdom</option>
+														<option value="United States" countrycode="+1">United States</option>
+														<option value="United States Minor Outlying Islands" countrycode="">United States Minor Outlying Islands</option>
+														<option value="Uruguay" countrycode="+598">Uruguay</option>
+														<option value="Uzbekistan" countrycode="+998">Uzbekistan</option>
+														<option value="Vanuatu" countrycode="+678">Vanuatu</option>
+														<option value="Venezuela" countrycode="+58">Venezuela</option>
+														<option value="Virgin Islands, British" countrycode="+1284">Virgin Islands, British</option>
+														<option value="Virgin Islands, U.S." countrycode="+1340">Virgin Islands, U.S.</option>
+														<option value="Wallis And Futuna" countrycode="+681">Wallis And Futuna</option>
+														<option value="Western Sahara" countrycode="+212">Western Sahara</option>
+														<option value="Yemen" countrycode="+967">Yemen</option>
+														<option value="Zambia" countrycode="+260">Zambia</option>
+														<option value="Zimbabwe" countrycode="+263">Zimbabwe</option>
+													</select>
+												</div>
+											</div>
+											<div class="form-group clearfix">
+												<div class="col-sm-3">
+													<span>Tỉnh/Thành phố</span>
+												</div>
+												<div class="col-sm-9">
+													<select id="customer_city" class="form-control">
+														<option value="">Tỉnh thành</option>
+														<option value="Hà Nội">Hà Nội</option>
+														<option value="TP HCM">TP HCM</option>
+														<option value="An Giang">An Giang</option>
+														<option value="Bà Rịa - Vũng Tàu">Bà Rịa - Vũng Tàu</option>
+														<option value="Bạc Liêu">Bạc Liêu</option>
+														<option value="Bắc Giang">Bắc Giang</option>
+														<option value="Bắc Kạn">Bắc Kạn</option>
+														<option value="Bắc Ninh">Bắc Ninh</option>
+														<option value="Bến Tre">Bến Tre</option>
+														<option value="Bình Dương">Bình Dương</option>
+														<option value="Bình Định">Bình Định</option>
+														<option value="Bình Phước">Bình Phước</option>
+														<option value="Bình Thuận">Bình Thuận</option>
+														<option value="Cà Mau">Cà Mau</option>
+														<option value="Cao Bằng">Cao Bằng</option>
+														<option value="Cần Thơ">Cần Thơ</option>
+														<option value="Đà Nẵng">Đà Nẵng</option>
+														<option value="Đắk Lắk">Đắk Lắk</option>
+														<option value="Đắk Nông">Đắk Nông</option>
+														<option value="Điện Biên">Điện Biên</option>
+														<option value="Đồng Nai">Đồng Nai</option>
+														<option value="Đồng Tháp">Đồng Tháp</option>
+														<option value="Gia Lai">Gia Lai</option>
+														<option value="Hà Giang">Hà Giang</option>
+														<option value="Hà Nam">Hà Nam</option>
+														<option value="Hà Tĩnh">Hà Tĩnh</option>
+														<option value="Hải Dương">Hải Dương</option>
+														<option value="Hải Phòng">Hải Phòng</option>
+														<option value="Hậu Giang">Hậu Giang</option>
+														<option value="Hòa Bình">Hòa Bình</option>
+														<option value="Hưng Yên">Hưng Yên</option>
+														<option value="Kiên Giang">Kiên Giang</option>
+														<option value="Kon Tum">Kon Tum</option>
+														<option value="Khánh Hòa">Khánh Hòa</option>
+														<option value="Lai Châu">Lai Châu</option>
+														<option value="Lạng Sơn">Lạng Sơn</option>
+														<option value="Lào Cai">Lào Cai</option>
+														<option value="Lâm Đồng">Lâm Đồng</option>
+														<option value="Long An">Long An</option>
+														<option value="Nam Định">Nam Định</option>
+														<option value="Ninh Bình">Ninh Bình</option>
+														<option value="Ninh Thuận">Ninh Thuận</option>
+														<option value="Nghệ An">Nghệ An</option>
+														<option value="Phú Thọ">Phú Thọ</option>
+														<option value="Phú Yên">Phú Yên</option>
+														<option value="Quảng Bình">Quảng Bình</option>
+														<option value="Quảng Nam">Quảng Nam</option>
+														<option value="Quảng Ninh">Quảng Ninh</option>
+														<option value="Quảng Ngãi">Quảng Ngãi</option>
+														<option value="Quảng Trị">Quảng Trị</option>
+														<option value="Sóc Trăng">Sóc Trăng</option>
+														<option value="Sơn La">Sơn La</option>
+														<option value="Tây Ninh">Tây Ninh</option>
+														<option value="Tiền Giang">Tiền Giang</option>
+														<option value="Tuyên Quang">Tuyên Quang</option>
+														<option value="Thái Bình">Thái Bình</option>
+														<option value="Thái Nguyên">Thái Nguyên</option>
+														<option value="Thanh Hóa">Thanh Hóa</option>
+														<option value="Thừa Thiên Huế">Thừa Thiên Huế</option>
+														<option value="Trà Vinh">Trà Vinh</option>
+														<option value="Vĩnh Long">Vĩnh Long</option>
+														<option value="Vĩnh Phúc">Vĩnh Phúc</option>
+														<option value="Yên Bái">Yên Bái</option>
+													</select>
+													<input type="text" class="form-control hidden" id="customer_city_other">
+												</div>
+											</div>
+											<div class="form-group clearfix info_person">
+												<div class="col-sm-3">
+													<span>Số CMTND</span>
+												</div>
+												<div class="col-sm-9">
+													<input type="text" class="form-control">
+												</div>
+											</div>
+											<div class="form-group clearfix info_org hidden">
+												<div class="col-sm-3">
+													<span>Mã số thuế</span>
+												</div>
+												<div class="col-sm-9">
+													<input type="text" class="form-control">
+												</div>
+											</div>
+											<div class="form-group clearfix">
+												<div class="col-sm-3">
+													<span>Email chính</span>
+												</div>
+												<div class="col-sm-9">
+													<input type="text" class="form-control">
+												</div>
+											</div>
+											<div class="form-group clearfix">
+												<div class="col-sm-3">
+													<span>Email phụ</span>
+												</div>
+												<div class="col-sm-9">
+													<input type="text" class="form-control">
+												</div>
+											</div>
+											<div class="form-group clearfix">
+												<div class="col-sm-3">
+													<span>Di động</span>
+												</div>
+												<div class="col-sm-9">
+													<input type="text" class="form-control">
+												</div>
+											</div>
+											<div class="form-group clearfix">
+												<div class="col-sm-3">
+													<span>Điện thoại bàn</span>
+												</div>
+												<div class="col-sm-9">
+													<input type="text" class="form-control">
+												</div>
+											</div>
+											<div class="form-group clearfix">
+												<div class="col-sm-3">
+													<span>Fax</span>
+												</div>
+												<div class="col-sm-9">
+													<input type="text" class="form-control">
+												</div>
+											</div>
+											<div class="form-group clearfix info_person">
+												<div class="col-sm-3">
+													<span>Ngày sinh</span>
+												</div>
+												<div class="col-sm-9">
+													<div class="input-group">
+														<input type="text" class="form-control" placeholder="dd/mm/yyyy">
+														<span class="input-group-btn">
+															<button type="button" class="btn btnWhite"><i class="fa fa-calendar"></i></button>
+														</span>
+													</div>
+												</div>
+											</div>
+											<div class="form-group">
+												<div class="col-sm-6">
+													<label>Ngày tạo:</label>
+													<span>23/08/2014</span>
+												</div>
+												<div class="col-sm-6">
+													<label>Ngày sửa đổi:</label>
+													<span>12/04/2016</span>
+												</div>
+											</div>
+										</div>
+										<!-- end row -->
+
+										<div class="form-group clearfix modalBtnBlock">
+											<button class="btnCancel" data-dismiss="modal">Hủy</button>
+											<input type="submit" class="btnDefault"  data-dismiss="modal" value="Lưu thay đổi">
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- customerDetailModal -->
+
+					<div class="paginationBlock clearfix">
+						<ul class="pagination">
+							<li class="active"><a href="#">1</a></li>
+							<li><a href="#">2</a></li>
+							<li><a href="#">3</a></li>
+							<li><a href="#">4</a></li>
+							<li><a href="#">5</a></li>
+						</ul>
+					</div>
+				</div>
+				<!-- end pageContentBody -->
+
+			</div>
+			<!-- end pageContent -->
+
+			<!-- begin footer -->
+			<footer id="footer"></footer>
+			<!-- end footer -->
+		</div>
+		<!-- end pageWrapper -->
+		<script type="text/javascript" src="./js/custom.js"></script>
+		<script type="text/javascript" src="./js/include.js"></script>
+		<script type="text/javascript" src="./js/customer-list.js"></script>
+	</body>
+</html>

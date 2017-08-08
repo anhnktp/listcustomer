@@ -1,0 +1,912 @@
+* {
+	box-sizing: border-box;
+}
+.relative {
+	position: relative;
+}
+body {
+	height: 100%;
+}
+/* -------------------------- sideBar */
+.sideBar {
+	float: left;
+	width: 220px;
+	height: 100%;
+	/*position: fixed;*/
+	position: absolute;
+	transition: 0.5s;
+	z-index: 10 !important;
+}
+.sideBarBg {
+	/*width: 100%;*/
+	width: 220px;
+	min-height: 100%;
+	/*position: absolute;*/
+	position: fixed;
+	background-color: #2f4050;
+	/*overflow: hidden;*/
+	z-index: -100;
+}
+.sideBarHeader {
+	height: 145px;
+	background-color: #233646;
+}
+.sideBar .openSideBarBtn {
+	position: absolute;
+	right: 0;
+	width: 40px;
+	text-align: center;
+	background-color: #233646;
+	color: white;
+	cursor: pointer;
+	z-index: 100 !important;
+	font-size: 30px;
+	display: none;
+}
+.sideBar .openSideBarBtn:hover {
+	color: #1ab394;
+}
+.sideBarHeader .logo {
+	background: url("../img/logo.png") no-repeat 25px ;
+	height: 90px;
+	display: block;
+	position: relative;
+}
+.sideBarHeader .profile {
+	height: 55px;
+	padding-left: 25px;
+	position: relative;
+	cursor: pointer;
+}
+.sideBarHeader .accountName {
+	color: #dfe4ed;
+	font-weight: bold;
+}
+.sideBarHeader .accountRole {
+	color: #676A6C;
+	font-size: 90%;
+}
+.sideBarHeader .profile .profileDropdown {
+	background-color: white;
+	position: absolute;
+	border-radius: 4px;	
+	padding: 4px;
+	opacity: 0;
+	transition: 0.4s;
+	z-index: -10;
+}
+.sideBarHeader .profile .profileDropdown a {
+	display: block;
+	padding: 8px 25px;
+	color: black;
+	text-decoration: none;
+	font-size: 90%;
+}
+.sideBarHeader .profile .profileDropdown a:hover {
+	background-color:	 #f2f2f2;
+}
+.profileDropdownShow {
+	opacity: 1 !important;
+	z-index: 100 !important;
+}
+
+/* ---------------------- sideBarMenu */
+.sideBarMenu ul {
+	list-style-type: none;
+	padding: 0;
+}
+.sideBarMenu li {
+}
+.sideBarMenu li a {
+	display: block;
+	color: #a7b1c2;
+	padding: 12px;
+	padding-left: 20px;
+	text-decoration: none;
+	transition: all 0.4s;
+	border-left: 4px solid transparent;
+}
+.sideBarMenu li a:hover,
+.sideBarMenu li a.active {
+	background-color: #233646;
+	color: white;
+}
+.sideBarMenu li a.active {
+	transition: all 0.4s;
+	border-left: 4px solid #19AA8D;
+}
+.sideBarMenu li a span.glyphicon-menu-left {
+	transition: transform 0.4s;
+}
+.sideBarMenu li a.active span.glyphicon-menu-left {
+	transform: rotate(-90deg);
+	transition: transform 0.4s;
+}
+.sideBarMenu li span.glyphicon-menu-left {
+	font-size: 80%;
+	float: right;
+}
+.sideBarMenu li ul.subMenu {
+	position: relative;
+	background-color: #233646;
+	opacity: 0;
+	max-height: 0;
+	transition: all 0.4s;
+	pointer-events: none;
+	z-index: -1;
+	border-left: 4px solid transparent;
+}
+.sideBarMenu li ul.subMenuShow {
+	max-height: 600px;
+	opacity: 1;
+	transition: all 0.5s;
+	z-index: 0;
+	border-left: 4px solid #19AA8D;
+	pointer-events: auto;
+}
+.sideBarMenu li ul a {
+	padding: 10px;
+	padding-left: 50px;
+}
+
+@media screen and (max-width: 991px) {
+	.sideBar {
+		margin-left: -220px;
+		z-index: 0;
+		transition: 0.5s;
+	}
+	.sideBarShow {
+		margin-left: 0;
+		z-index: 100 !important;
+		transition: 0.5s;
+	}
+	.sideBar .openSideBarBtn {
+		display: block;
+	}
+}
+
+/* --------------------- end sideBar */
+/*----------------------begin pageWrapper */
+.pageWrapper {
+	margin-left: 220px;
+	position: relative;
+	min-height: 100%;
+	transition: all 0.5s;
+	z-index: auto;
+}
+header {
+	position: relative;
+	height: 80px;
+	background-color: #f3f3f4;
+}
+header .openSideBarBtn {
+	position: absolute;
+	width: 40px;
+	text-align: center;
+	padding: 7px;
+	margin: 14px;
+	background-color: #1ab394;
+	color: white;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: 0.5s;
+	display: none;
+}
+header .openSideBarBtn:hover {
+	background-color: #169c81 !important;
+}
+header .headerLink {
+	float: right;
+	padding: 20px;
+	font-weight: bold;
+}
+header .headerLink .logOutBtn {
+	margin-left: 10px;
+	text-decoration: none;
+	color: #999c9e
+}
+header .headerLink .logOutBtn:hover {
+	color: #2f4050;
+}
+header .headerSeparator {
+	height: 18px;
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	background-color: #fff;
+	border-top: 1px solid #e7eaec;
+	border-bottom: 1px solid #e7eaec;
+}
+@media screen and (max-width: 991px)
+{
+	.pageWrapper {
+		margin-left: 0;
+	}
+	header .openSideBarBtn {
+		display: block;
+	}
+}
+/* ---------------------- end header */
+/* ---------------------- begin pageContent */
+.pageContent {
+	width: 100%;
+	min-height: 800px;
+	background-color: #f3f3f4;
+	padding: 15px;
+}
+@media screen and (max-width: 767px) {
+	.pageContent {
+		padding: 5px;
+	}
+}
+.pageTitle {
+	background-color: #ffffff;
+	border-color: #e7eaec;
+	border-style: solid;
+	border-width: 4px 0 1px;
+	color: inherit;
+	margin-bottom: 10px;
+	padding: 12px 15px 9px;
+}
+.pageTitle h1 {
+	font-size: 20px;
+	padding: 0;
+	margin: 0;
+	font-weight: bold;
+	color: #676A6C;
+}
+.pageTitle h1 span {
+	font-size: 18px;
+}
+.pageContentBody {
+	background-color: #ffffff;
+	padding: 10px;
+	min-height: 722px;
+}
+.pageContentBody a {
+	text-decoration: none;
+	color: #1ab394;
+}
+.pageContentBody a:hover {
+	color: black;
+}
+form .form-group {
+	margin: 10px 0!important;
+}
+.form-control {
+	display: inline-block;
+	padding: 4px 8px;
+	height: 30px;
+	border-radius: 2px;
+}
+select.form-control {
+	height: 30px;
+}
+.form-control:disabled {
+	background-color: #e5e5e5;
+}
+form .required:before {
+	content: " *";
+	color: red;
+}
+.autoWidth {
+	width: auto !important;
+}
+.btnDefault,
+.btnCancel,
+.btnDanger,
+.btnWhite {
+	height: 30px;
+	padding: 4px 12px;
+	margin-bottom: 3px;
+	font-size: 14px;
+	line-height: 1.42857143;
+	border-radius: 2px;
+	background-color: #1ab394 !important;
+	color: white !important;
+	border: none !important;
+}
+.btnDefault:hover {
+	background-color: #169c81 !important;
+}
+.btnCancel {
+	color: #999 !important;
+	background-color: #f1f1f1 !important;
+	border: 1px solid #e7eaec !important;
+}
+.btnCancel:hover {
+	background-color: #e1e1e1 !important;;
+}
+.btnDanger {
+	background-color: #ed5565 !important;
+}
+.btnDanger:hover {
+	background-color: #e92f42 !important;
+}
+.btnWhite {
+	color:black !important;
+	background-color: #fff !important;
+	border: 1px solid #ccc !important;
+}
+.btnWhite:hover {
+	background-color: #e6e6e6 !important;
+}
+form .form-group .input-group .btnDefault,
+form .form-group .input-group .btnCancel,
+form .form-group .input-group .btnDanger,
+form .form-group .input-group .btnWhite {
+	margin-bottom: 0;
+}
+.w-200 {
+	width: 200px;
+}
+.mw-1500 {
+	max-width: 1500px;
+	margin: 0 auto;
+}
+.col {
+	float: left;
+	padding: 0 15px;
+}
+.float-left {
+	float: left;
+}
+.float-right {
+	float: right;
+}
+.align-left {
+	text-align: left !important;
+}
+.batchActionBlock button:not(:last-child) {
+	float: left;
+	margin-left: 4px;
+}
+.batchActionBlock .form-group {
+	float: left;
+	margin-left: 4px;
+}
+.responsiveTableContainer {
+	width: 100%;
+	overflow-x: auto;
+}
+.tableDefault {
+	width: 100%;
+	border-top: 3px solid #b8c1c7;
+	margin-bottom: 20px;
+}
+.tableDefault th {
+	text-align: center;
+}
+.tableDefault th,
+.tableDefault td {
+	border: 1px solid #b8c1c7;
+	padding: 5px;
+}
+.tableDefault a {
+	text-decoration: none !important;
+	color: #169c81;
+}
+.tableDefault a:hover {
+	color: black;
+}
+.emailAddress {
+	word-wrap: break-word;
+	word-break: break-all;
+}
+.p-l-5 {
+	padding-left: 5px;
+}
+.p-r-5 {
+	padding-right: 5px;
+}
+.paginationBlock {
+	display: block;
+}
+.paginationBlock .pagination {
+	float: right;
+}
+.pagination > li > a,
+.pagination > li > span {
+	color: #1ab394 ;
+}
+.pagination > li > a:hover,
+.pagination > li > span:hover,
+.pagination > li > a:focus,
+.pagination > li > span:focus {
+	color: #1ab394;
+}
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus {
+	background-color: #1ab394 ;
+	border-color: #1ab394;
+}
+footer {
+	background: none repeat scroll 0 0 white;
+	border-top: 1px solid #e7eaec;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	padding: 10px 20px;
+}
+@media screen and (min-width: 768px) {
+form .control-label {
+	text-align: right;
+	padding-top: 7px;
+	margin-bottom: 0;
+}
+}
+/*****************************************************/
+/**************  category-service.html  **************/
+/*****************************************************/
+.categoryManage .topBtnBlock {
+	margin: 5px 0 0; 
+}
+.categoryManage .topBtnBlock div {
+	margin-bottom: 5px;
+}
+.categoryManage .topBtnBlock div:not(:last-child) {
+	margin-right: 5px;
+}
+.categoryManage .topBtnBlock select {
+	float: left;
+}
+.categoryManage .noCol,
+.categoryManage .selectCol
+{
+	width: 3em;
+}
+.categoryManage .statusCol {
+	width: 3em;
+}
+.categoryManage .editCol,
+.categoryManage .deleteCol {
+	width: 4em;
+}
+.categoryManage .textSearch {
+	width: 165px;
+}
+.categoryManage .textSearch-lg {
+	width: 300px;
+}
+@media screen and (max-width: 340px) {
+	.categoryManage .textSearch-lg {
+		width: 100%;
+	}
+}
+
+.categoryManage .basicServiceTable tr td:nth-child(4),
+.categoryManage .basicServiceTable tr td:nth-child(5),
+.categoryManage .basicServiceTable tr td:nth-child(6),
+.categoryManage .basicServiceTable tr td:nth-child(7),
+.categoryManage .resellerLevelTable tr td:nth-child(5),
+.categoryManage .resellerLevelTable tr td:nth-child(6),
+.categoryManage .resellerLevelTable tr td:nth-child(7),
+.categoryManage .resellerLevelTable tr td:nth-child(8),
+.categoryManage .basicPackageTable tr td:nth-child(10),
+.categoryManage .basicPackageTable tr td:nth-child(11),
+.categoryManage .basicPackageTable tr td:nth-child(12),
+.categoryManage .basicPackageTable tr td:nth-child(13),
+.categoryManage .extendPackageTable tr td:nth-child(8),
+.categoryManage .extendPackageTable tr td:nth-child(9),
+.categoryManage .extendPackageTable tr td:nth-child(10),
+.categoryManage .extendPackageTable tr td:nth-child(11),
+.categoryManage .resellerTable tr td:nth-child(8),
+.categoryManage .resellerTable tr td:nth-child(13),
+.categoryManage .resellerTable tr td:nth-child(15),
+.categoryManage .customerTable tr td:nth-child(8),
+.categoryManage .customerTable tr td:nth-child(9),
+.categoryManage .transactionTable tr td:nth-child(11),
+.categoryManage .transactionTable tr td:nth-child(12),
+.categoryManage .accountTable tr td:nth-child(5),
+.categoryManage .accountTable tr td:nth-child(6),
+.categoryManage .accountTable tr td:nth-child(7),
+.categoryManage .reportCompCheckTable tr td:nth-child(8),
+.serverTable tr td:nth-child(11),
+.serverTable tr td:nth-child(13),
+.serverTable tr td:nth-child(14),
+.serverTable tr td:nth-child(15)
+{
+	text-align: center;
+}
+.categoryManage .basicPackageTable tr td:nth-child(6),
+.categoryManage .basicPackageTable tr td:nth-child(7),
+.categoryManage .basicPackageTable tr td:nth-child(8),
+.categoryManage .extendPackageTable tr td:nth-child(5),
+.categoryManage .extendPackageTable tr td:nth-child(6),
+.categoryManage .resellerLevelTable tr td:nth-child(3),
+.categoryManage .resellerTable tr td:nth-child(10),
+.categoryManage .resellerTable tr td:nth-child(11),
+.categoryManage .transactionTable tr td:nth-child(7),
+.categoryManage .transactionTable tr td:nth-child(8),
+.categoryManage .reportSalesTotalTable tr td:nth-child(6),
+.categoryManage .reportSalesTotalTable tr td:nth-child(7),
+.categoryManage .reportSalesTotalTable tr td:nth-child(8),
+.categoryManage .reportSalesTotalTable tr td:nth-child(9),
+.categoryManage .reportSalesTotalTable tr td:nth-child(10),
+.categoryManage .reportSalesTotalTable tr td:nth-child(11),
+.categoryManage .reportSalesTotalTable tr td:nth-child(12),
+.categoryManage .reportSalesTotalTable tr td:nth-child(13),
+.categoryManage .reportSalesPeriodTable tr td:nth-child(5),
+.categoryManage .reportSalesPeriodTable tr td:nth-child(6),
+.categoryManage .reportSalesPeriodTable tr td:nth-child(7),
+.categoryManage .reportSalesPeriodTable tr td:nth-child(8),
+.categoryManage .reportSalesPeriodTable tr td:nth-child(9),
+.categoryManage .reportSalesPeriodTable tr td:nth-child(10),
+.categoryManage .reportSalesPeriodTable tr td:nth-child(11),
+.categoryManage .reportSalesPeriodTable tr td:nth-child(12),
+.categoryManage .reportSalesPeriodTable tr td:nth-child(13),
+.categoryManage .reportSalesPeriodTable tr td:nth-child(14),
+.categoryManage .reportSalesPeriodTable tr td:nth-child(15),
+.categoryManage .reportSalesPeriodTable tr td:nth-child(16),
+.categoryManage .reportSalesPeriodTable tr td:nth-child(17),
+.categoryManage .reportSalesPeriodTable tr td:nth-child(18),
+.categoryManage .reportSalesResellerTable tr td:nth-child(3),
+.categoryManage .reportSalesResellerTable tr td:nth-child(4),
+.categoryManage .reportSalesResellerTable tr td:nth-child(5),
+.categoryManage .reportSalesResellerTable tr td:nth-child(6),
+.categoryManage .reportSalesResellerTable tr td:nth-child(7),
+.categoryManage .reportSalesResellerTable tr td:nth-child(8),
+.categoryManage .reportSalesResellerTable tr td:nth-child(9),
+.categoryManage .reportSalesResellerTable tr td:nth-child(10),
+.categoryManage .reportResellerEndTable tr td:nth-child(8),
+.categoryManage .reportCompCheckTable tr td:nth-child(7),
+.categoryManage .reportCompCheckTable tr td:nth-child(9),
+.categoryManage .reportCompCheckTable tr td:nth-child(10),
+.categoryManage .reportCompCheckTable tr td:nth-child(11),
+.categoryManage .reportCompCheckTable tr td:nth-child(12),
+.categoryManage .reportServiceTable tr td:nth-child(6),
+.categoryManage .reportServiceTable tr td:nth-child(7),
+.categoryManage .reportServiceTable tr td:nth-child(8),
+.categoryManage .reportServiceTable tr td:nth-child(9),
+.categoryManage .reportPaymentTable tr td:nth-child(2),
+.categoryManage .reportPaymentTable tr td:nth-child(5),
+.categoryManage .reportPaymentTable tr td:nth-child(6),
+.categoryManage .reportProductivityAllTable tr td:nth-child(5),
+.categoryManage .reportProductivityAllTable tr td:nth-child(6),
+.categoryManage .reportProductivityAllTable tr td:nth-child(7),
+.categoryManage .reportProductivityAllTable tr td:nth-child(8),
+.categoryManage .reportProductivityHostingTable tr td:nth-child(5),
+.categoryManage .reportProductivityHostingTable tr td:nth-child(6),
+.categoryManage .reportProductivityHostingTable tr td:nth-child(7),
+.categoryManage .reportProductivityHostingTable tr td:nth-child(8),
+.categoryManage .reportProductivityHostingTable tr td:nth-child(9),
+.categoryManage .reportProductivityHostingTable tr td:nth-child(10),
+.categoryManage .reportProductivityEmailTable tr td:nth-child(5),
+.categoryManage .reportProductivityEmailTable tr td:nth-child(6),
+.categoryManage .reportProductivityEmailTable tr td:nth-child(7),
+.categoryManage .reportProductivityEmailTable tr td:nth-child(8),
+.categoryManage .reportProductivityEmailTable tr td:nth-child(9),
+.categoryManage .reportProductivityEmailTable tr td:nth-child(10),
+.serverTable tr td:nth-child(8),
+.serverTable tr td:nth-child(9),
+.serverTable tr td:nth-child(10)
+{	
+	text-align: right;
+}
+.categoryManage a .fa {
+	font-size: 140%;
+}
+@media screen and (min-width: 440px) {
+	.categoryManage .modal-w-400 .modal-dialog {
+		width: 400px;
+		margin: 30px auto;
+	}
+}
+@media screen and (max-width: 991px) and (min-width: 768px) {
+	.categoryManage .modal-lg {
+		width: 726px !important;
+		margin: 30px auto;
+	}
+}
+.categoryManage .modal-dialog .modalBtnBlock {
+	margin-top: 20px;
+	text-align: center;
+}
+.categoryManage .modal-w-400 .modal-dialog .modalBtnBlock button:first-child {
+	margin-right: 10px;
+}
+.categoryManage .modal .checkbox {
+	margin-top: 0;
+	margin-bottom: 5px;
+}
+.categoryManage form .formBtnBlock {
+	text-align: center;
+}
+.categoryManage form .formBtnBlock button {
+	margin-right: 5px;
+}
+ul.resellerService {
+	padding: 0;
+	list-style-type: none;
+}
+.categoryManage .tableAction {
+	text-align: center;
+}
+.categoryManage .tableAction a {
+	display: inline-block;
+	padding: 1px;
+}
+.categoryManage .resellerServiceList {
+	padding: 0;
+	list-style-type: none;
+}
+.categoryManage .resellerServiceList li {
+	display: inline-block;
+}
+
+.categoryManage .discountBlock .form-group {
+	line-height: inherit;
+}
+.categoryManage .discountBlock h5 {
+	margin: 10px 0 0 10px;
+	font-size: 100%;
+	font-weight: bold;
+}
+.categoryManage .discountBlock > .row {
+	margin-bottom: 20px;
+}
+.categoryManage .unitfulInput {
+	position: relative;
+	padding: 0;
+	margin: 0;
+}
+.categoryManage .unitfulInput input {
+	padding-right: 70px;
+}
+.categoryManage .unitSelect {
+	position: absolute;
+	top: 0px;
+	right: 0;
+}
+.inputNote {
+	font-size: 80%;
+	font-style: italic;
+	position: relative;
+	color: #666666;
+	margin-top: 2px;
+}
+.categoryManage .discountBlock {
+	margin-top: 15px;
+}
+.categoryManage .discountBlock hr {
+	border-top: 1px dashed #eee !important;
+	margin: 0;
+	width: 50%;
+}
+
+#storageUnit,
+#periodUnit {
+	min-width: 1px;
+}
+
+.infoModal table {
+	width: 100%;
+}
+.infoModal table td {
+	padding: 5px;
+}
+#resellerInfoModal table {
+	margin-top: 10px;
+	width: 100%;
+}
+#customerInfoModal table {
+	width: 100%;
+}
+#resellerInfoModal table td,
+#customerInfoModal table td {
+	padding: 5px;
+}
+#resellerInfoModal #step3 table tbody tr:not(:nth-child(1)) td:nth-child(2),
+#resellerInfoModal #step3 table tbody tr td:nth-child(3),
+#resellerInfoModal #step3 table tbody tr td:nth-child(4),
+#resellerInfoModal #step3 table tbody tr td:nth-child(5) {
+	text-align: center;
+}
+#customerInfoModal .modal-body .row {
+	margin-top: 20px;
+	margin-left: -10px;
+}
+.colon {
+	width: 15px;
+	padding-left: 5px;
+}
+/*****************************************************/
+/********************* login.html ********************/
+/*****************************************************/
+.login {
+	position: relative;
+	min-height: 100%;
+}
+.login header {
+	background-color: #233646;
+}
+.login header img {
+	position: relative;
+	width: 170px;
+	top: 3px;
+	left: 10px;
+}
+.login .loginForm {
+	padding: 20px 30px;
+	background-color: #fff;
+	border: 1px solid #b8c1c7;
+	border-radius: 5px;
+	width: 100%;
+	max-width: 400px;
+	margin: 0 auto;
+	margin-top: 15px;
+}
+.login .loginForm h4 {
+	color: #1ab394;
+	margin-bottom: 40px;
+	text-align: center;
+}
+.login .loginForm .form-group {
+	margin-bottom: 20px;
+}
+.login .loginForm input[type=submit] {
+	display: block;
+	margin: 0 auto;
+}
+.login .loginForm .capcha .input-group-addon {
+	padding: 0 !important;
+}
+.login .loginForm .capcha .input-group-addon img {
+	height: 28px;
+}
+.login .inputMessage {
+	font-size: 85%;
+	color: red;
+	margin-top: 3px;
+}
+@media screen and (max-width: 479px) {
+	.login .loginForm label,
+	.login .loginForm input[type=text] {
+		width: 100%;
+	}
+	.login .loginForm .capcha img {
+		display: block;
+		margin: 0 auto;
+	}
+}
+
+/*****************************************************/
+/********** acount-password-change.html **************/
+/*****************************************************/
+.changePass form {
+	width: 100%;
+	max-width: 700px;
+	margin: 0 auto;
+}
+.changePass form label {
+	width: 38%;
+	float: left;
+}
+.changePass form input[type=text] {
+	width: 62%;
+	float: left;
+}
+.changePass form .btnBlock {
+	text-align: center;
+}
+@media screen and (max-width: 479px) {
+	.changePass form label,
+	.changePass form input[type=text] {
+		width: 100%;
+	}
+}
+
+/*****************************************************/
+/*********************  home.html  *******************/
+/*****************************************************/
+.home {
+	min-height: 800px;
+	margin: 0 -10px;
+}
+.home .sectionBox {
+	background-color: #fff;
+	padding-bottom: 10px;
+	margin: 0 10px;
+	margin-bottom: 10px;
+}
+.home .boxTitle {
+	background-color: #ffffff;
+	border-color: #e7eaec;
+	border-style: solid;
+	border-width: 4px 0 1px;
+	color: inherit;
+	padding: 12px 15px 7px;
+	margin-bottom: 10px;
+}
+.home .boxTitle h2 {
+	font-size: 17px;
+	color: #676A6C;
+	padding: 0;
+	margin: 0;
+	font-weight: bold;
+}
+.home .boxContent {
+}
+.home .homeCircleBtn {
+	display: inline-block;
+	padding: 10px;
+	min-width: 170px;
+	text-align: center;
+	height: 120px;
+}
+.home .homeCircleBtn {
+	text-decoration: none;
+}
+.home .homeCircleBtn button {
+	width: 70px;
+	height: 70px;
+	border-radius: 50%;
+	border: none;
+	color: white;
+}
+.home .homeCircleBtn button .fa {
+	font-size: 30px;
+}
+.home .homeCircleBtn h5 {
+	font-weight: bold;
+}
+.home .homeCircleBtn .categoryBtn {
+	background-color: #1c84c6;
+}
+.home .homeCircleBtn:hover .categoryBtn {
+	background-color: #16699c;
+}
+.home .homeCircleBtn .resellerBtn {
+	background-color: #19a2b3;
+}
+.home .homeCircleBtn:hover .resellerBtn {
+	background-color: #137886;
+}
+.home .homeCircleBtn .systemBtn {
+	background-color: #1ab394;
+}
+.home .homeCircleBtn:hover .systemBtn {
+	background-color: #13866f;
+}
+.home .homeCircleBtn .accountBtn {
+	background-color: #19b366;
+}
+.home .homeCircleBtn:hover .accountBtn {
+	background-color: #13864d;
+}
+.home .homeCircleBtn .otherBtn {
+	background-color: #66b319;
+}
+.home .homeCircleBtn:hover .otherBtn {
+	background-color: #4d8613;
+}
+
+
+@media screen and (min-width: 1600px) {
+	.home .sectionBox {
+		width: 48.5%;
+		float: left;
+	}
+}
+@media screen and (max-width: 679px) {
+	.home .homeCircleBtn {
+		width: 33.33333%;
+		text-align: center;
+		float: left;
+	}
+}
+@media screen and (max-width: 539px) {
+	.home .homeCircleBtn {
+		width: 50%;
+	}
+}
+@media screen and (max-width: 359px) {
+	.home .homeCircleBtn {
+		width: 100%;
+	}
+}
